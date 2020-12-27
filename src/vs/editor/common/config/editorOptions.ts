@@ -625,6 +625,11 @@ export interface IEditorOptions {
 	 * Controls strikethrough deprecated variables.
 	 */
 	showDeprecated?: boolean;
+	/**
+	 * Maximum number of cursors
+	 * Defaults to 10000.
+	 */
+	maxCursorCount?: number;
 }
 
 /**
@@ -3698,6 +3703,7 @@ export const enum EditorOption {
 	linkedEditing,
 	links,
 	matchBrackets,
+	maxCursorCount,
 	minimap,
 	mouseStyle,
 	mouseWheelScrollSensitivity,
@@ -4062,6 +4068,10 @@ export const EditorOptions = {
 		'always' as 'never' | 'near' | 'always',
 		['always', 'near', 'never'] as const,
 		{ description: nls.localize('matchBrackets', "Highlight matching brackets.") }
+	)),
+	maxCursorCount: register(new EditorIntOption(
+		EditorOption.maxCursorCount, 'maxCursorCount',
+		10000, 1, Constants.MAX_SAFE_SMALL_INTEGER
 	)),
 	minimap: register(new EditorMinimap()),
 	mouseStyle: register(new EditorStringEnumOption(

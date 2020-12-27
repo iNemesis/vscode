@@ -121,8 +121,6 @@ class AutoClosedAction {
 
 export class Cursor extends Disposable {
 
-	public static readonly MAX_CURSOR_COUNT = 10000;
-
 	private readonly _model: ITextModel;
 	private _knownModelVersionId: number;
 	private readonly _viewModel: ICursorSimpleModel;
@@ -216,8 +214,8 @@ export class Cursor extends Disposable {
 
 	public setStates(eventsCollector: ViewModelEventsCollector, source: string | null | undefined, reason: CursorChangeReason, states: PartialCursorState[] | null): boolean {
 		let reachedMaxCursorCount = false;
-		if (states !== null && states.length > Cursor.MAX_CURSOR_COUNT) {
-			states = states.slice(0, Cursor.MAX_CURSOR_COUNT);
+		if (states !== null && states.length > this.context.cursorConfig.maxCursorCount) {
+			states = states.slice(0, this.context.cursorConfig.maxCursorCount);
 			reachedMaxCursorCount = true;
 		}
 
